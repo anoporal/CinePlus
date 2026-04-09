@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <script type="text/javascript">
+            if (document.URL.includes("cliente")) {
+                window.location = "/CinePlus/controle?op=ConsultarTodos&model=Cliente";
+            } else if (document.URL.includes("sala")) {
+                window.location = "/CinePlus/controle?op=ConsultarTodos&model=Sala";
+            } else if (document.URL.includes("sessao")) {
+                window.location = "/CinePlus/controle?op=ConsultarTodos&model=Sessao";
+            } else if (document.URL.includes("filme")) {
+                window.location = "/CinePlus/controle?op=ConsultarTodos&model=Filme";
+            } else if (document.URL.includes("ingresso")) {
+                window.location = "/CinePlus/controle?op=ConsultarTodos&model=Cliente";
+            }  else {
+                window.location = "/CinePlus/controle";
+            }
+        </script>
+    </head>
+</html>
