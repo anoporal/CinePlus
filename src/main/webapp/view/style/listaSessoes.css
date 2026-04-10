@@ -1,0 +1,268 @@
+body {
+  background-color: #0d2c40;
+  /* Azul escuro da imagem */
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  min-height: 100vh;
+}
+
+.container-geral {
+  display: flex;
+  /* Transforma em flexbox para alinhar filhos */
+  flex-direction: column;
+  /* Coloca um item abaixo do outro */
+  align-items: center;
+  /* Centraliza tudo horizontalmente */
+  padding-top: 25px;
+  width: 100%;
+  /* Usa a largura total disponível */
+  margin: 0 auto;
+  /* min-width: 1200px; */
+  /* esses dois min e margin ajusta o icone no canto direito para nao grudar no letreiro */
+  margin: 0 auto;
+}
+
+.cabecalho {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  /* <-- AQUI está o segredo para desgrudar! */
+  position: relative;
+}
+
+
+.letreiro-iluminado {
+  background-color: #fdf5e6;
+  /* Cor interna clara */
+  border: 8px solid #d35400;
+  /* Borda laranja/avermelhada */
+  border-radius: 10px;
+  width: fit-content;
+  margin: 0 auto;
+  /* Centraliza na tela */
+  padding: 20px 60px;
+  box-shadow: 0 0 20px rgba(255, 200, 0, 0.5);
+  /* Brilho suave */
+  position: relative;
+}
+
+/* O texto "EM CARTAZ" */
+.letreiro-iluminado h1 {
+  color: #000;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  /* Fonte arredondada da imagem */
+  font-size: 3rem;
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* Efeito das lâmpadinhas (Dots) ao redor da borda */
+.letreiro-iluminado::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 4px dotted #ffcc00;
+  /* As bolinhas amarelas */
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.decoracao-topo {
+  position: absolute;
+  right: 1%;
+  /* Mantém ela na direita */
+  top: 50%;
+  /* Vamos tentar centralizar verticalmente em relação ao letreiro */
+  transform: translateY(-60%) scale(75%);
+  /* Ajuste fino da centralização vertical */
+}
+
+.decoracao-topo img {
+  width: 250px;
+  /* Ajuste o tamanho como preferir (estava 120px) */
+  height: auto;
+  opacity: 0.8;
+}
+
+.layout-principal {
+  width: 95%;
+}
+
+.tabela-cineplus {
+  width: 100%;
+  margin: 0 auto;
+  border-collapse: separate;
+  border-spacing: 0 15px;
+  /* Espaço entre as linhas */
+}
+
+/* Cabeçalho da Tabela */
+.tabela-cineplus thead th {
+  background: linear-gradient(180deg, #f1c40f, #d4ac0d);
+  color: black;
+  white-space: nowrap;
+  padding: 10px 0.25%;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 0.9rem;
+  min-width: 90px;
+}
+
+.tabela-cineplus thead th:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+.tabela-cineplus thead th:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+/* Corpo da Tabela */
+.tabela-cineplus tbody tr {
+  background-color: #162a3d;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.tabela-cineplus tbody td {
+  padding: 15px;
+  text-align: center;
+  /* Centraliza o conteúdo no meio da altura da linha */
+  color: white;
+}
+
+
+.tabela-cineplus tbody td:first-child {
+  border-radius: 12px 0 0 12px;
+  border-left: 1px solid #1a2a3a;
+}
+
+.tabela-cineplus tbody td:last-child {
+  border-radius: 0 12px 12px 0;
+  border-right: 1px solid #1a2a3a;
+}
+
+/* Mini Poster e Nome */
+.celula-filme {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: left;
+}
+
+.mini-poster {
+  width: 40px;
+  height: 60px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.tag-genero {
+  background-color: #4b1d3f;
+  /* Roxo da foto */
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+.btn-add {
+  text-decoration: none;
+  background: black;
+  color: gold;
+  border-radius: 100%;
+  font-size: 0.8rem;
+  margin-left: 5px;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  /* Empurra o + para baixo se ele estiver muito alto */
+  /* OU */
+  display: inline-block;
+  justify-content: center;
+}
+
+.coluna-acoes {
+  display: flex;
+  /* Espaço entre o Lixo e o Editar */
+  justify-content: space-evenly;
+  /* Centraliza os botões horizontalmente */
+  align-items: center;
+  /* Centraliza verticalmente (importante para não esticar) */
+}
+
+.btn-acao {
+  display: flex;
+  /* Para centralizar o ícone */
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  /* Tamanho fixo e quadrado */
+  height: 35px;
+  /* Tamanho fixo e quadrado */
+
+  border: none;
+  border-radius: 5px;
+  /* Bordas arredondadas leves */
+  cursor: pointer;
+  color: black;
+  /* Cor padrão do ícone */
+  text-decoration: none;
+  /* Remove sublinhado */
+  font-size: 1.0rem;
+  /* Tamanho do ícone */
+
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-excluir {
+  background-color: #e74c3c;
+}
+
+.btn-editar {
+  background-color: #f1c40f;
+  color: black;
+}
+
+.menu-editar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.opcoes {
+  display: none;
+  /* Escondido por padrão */
+  position: absolute;
+  background: white;
+  color: black;
+  z-index: 10;
+  flex-direction: column;
+  border-radius: 5px;
+  right: 0;
+
+}
+
+.menu-editar:hover .opcoes {
+  display: flex;
+}
+
+.opcoes a {
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  font-size: 0.8rem;
+  border-radius: 5px;
+}
+
+.opcoes a:hover {
+  background-color: #eee;
+}

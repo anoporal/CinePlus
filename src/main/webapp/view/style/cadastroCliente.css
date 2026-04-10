@@ -1,0 +1,125 @@
+/* 
+    Created on : 30 de mar. de 2026, 13:11:58
+    Author     : PC
+*/
+
+/* 1. CONFIGURAÇÃO DO FUNDO */
+body {
+    background-color: #001a2d; 
+    background-image: url(../../images/fundoCine.png);  /* Sua imagem de fundo */
+    background-size: 100vw 100vh;
+    background-position: top;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.area-fixa {
+    position: fixed;   /* ESSA É A FUNÇÃO QUE GRUDA NA TELA */
+    top: 35vh;        /* Altura exata abaixo do letreiro */
+    left: 0;
+    width: 100vw;      /* Ocupa a largura total para podermos centralizar */
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Centraliza o grupo na horizontal */
+    align-items: flex-start;
+    gap: 100px;              /* Espaço entre eles */
+    z-index: 10;             /* Garante que fiquem na frente de tudo */
+}
+
+
+/* 2. CAIXA DE CADASTRO (EMBAIXO DO LETREIRO) */
+#secao-cadastro {
+    width: 350px;                   /* Largura da caixa */
+    background: rgba(0, 0, 0, 0.6); /* Preto com 60% de transparência (efeito vidro) */
+    padding: 25px;                  /* Espaço interno */
+    border-radius: 15px;            /* Arredondamento das bordas da caixa */
+    border: 2px solid #ffbd00;      /* Borda amarela fina */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8); /* Sombra para dar profundidade */
+}
+
+/* Ajuste dos Inputs dentro do Cadastro */
+#secao-cadastro input {
+    width: 100%;                    /* Ocupa toda a largura da caixa */
+    background-color: #121212;      /* Fundo escuro conforme a foto */
+    border: 1px solid #ffbd00;      /* Borda amarela nos campos */
+    border-radius: 8px;             /* Canto levemente arredondado */
+    padding: 12px;                  /* Espaço para o texto não encostar na borda */
+    margin-bottom: 15px;            /* Espaço entre um campo e outro */
+    color: #ffffff;                 /* Cor da letra que o usuário digita */
+    font-size: 14px;
+    box-sizing: border-box;         /* Mantém o tamanho correto com padding */
+}
+
+/* Cor do texto de ajuda (Placeholder) */
+#secao-cadastro input::placeholder {
+    color: #888888;                 /* Cinza discreto */
+}
+
+/* Botão de Cadastrar */
+#secao-cadastro button {
+    width: 100%;
+    padding: 15px;
+    background-color: #ffbd00;      /* Amarelo sólido vibrante */
+    color: #000000;                 /* Texto preto para contraste */
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;      /* Letras Maiúsculas */
+    cursor: pointer;
+    transition: 0.3s;               /* Efeito suave ao passar o mouse */
+}
+
+#secao-cadastro button:hover {
+    background-color: #e6a800;      /* Escurece um pouco ao passar o mouse */
+    transform: scale(1.02);         /* Aumenta levemente o botão */
+}
+
+/* 3. MENU DE NAVEGAÇÃO (LADO DIREITO) */
+#menu-principal {
+    display: flex;
+    flex-direction: column; /* Botões um embaixo do outro */
+    gap: 12px;              /* Espaçamento entre os botões */
+    text-align: center;
+    margin-left: 40px;
+}
+
+/* Título "MENU" com a borda dupla da foto */
+.menu-titulo {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 8px 20px;
+    border: 3px double #ffbd00; /* A borda dupla amarela */
+    border-radius: 20px;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+/* Botões Dourados (Links) */
+.btn-link {
+    text-decoration: none;      /* Remove o sublinhado azul */
+    color: black;               /* Texto preto para destacar no dourado */
+    background: linear-gradient(to bottom, #d4a017, #8b6508); /* Degradê metalizado */
+    padding: 12px 50px;         /* Deixa o botão largo */
+    border-radius: 10px;        /* Bordas levemente arredondadas */
+    font-weight: bold;
+    font-size: 14px;
+    border: 1px solid #333;     /* Contorno para dar acabamento */
+    min-width: 160px;           /* Garante que todos tenham o mesmo tamanho */
+    transition: 0.3s;           /* Suaviza o efeito ao passar o mouse */
+    box-shadow: 2px 4px 8px rgba(0,0,0,0.5); /* Sombra para parecer um botão físico */
+}
+
+/* Efeito ao passar o mouse */
+.btn-link:hover {
+    filter: brightness(1.2);    /* O botão brilha um pouco */
+    transform: translateX(5px); /* Ele "anda" um pouquinho para a direita */
+}
