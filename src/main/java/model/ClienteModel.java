@@ -38,10 +38,6 @@ public class ClienteModel {
         return ingressos;
     }
 
-    public void comprarIngresso(List<IngressoModel> ingressos) {
-        this.ingressos = ingressos;
-    }
-
     public ClienteModel() {
     }
 
