@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : listaSessoes
     Created on : 31 de mar. de 2026, 17:53:15
     Author     : Breno
@@ -6,12 +6,11 @@
 
 <%@page import="java.util.Date"%>
 <%@page import="model.FilmeModel"%>
-<%@page import="java.util.Hashtable"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="model.SessaoModel"%>
 <%@page import="model.SalaModel"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
+<%@ page import="java.util.HashMap" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -19,7 +18,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>CinePlus</title>
-        <link rel="stylesheet" href="view/style/style.css"/>
+        <link rel="stylesheet" href="../view/style/style.css"/>
     </head>
     <body>
         <%
@@ -35,8 +34,8 @@
             String cadastrarStr = "Cadastrar";
             String listarTodosStr = "ConsultarTodos";
             String listarPorIdStr = "ConsultarId";
-            Hashtable sessao = (Hashtable) request.getAttribute("sessao");
-            Hashtable opcoes = (Hashtable) request.getAttribute("opcoes");
+            HashMap<String, Object> sessao = (HashMap<String, Object>) request.getAttribute("sessao");
+            HashMap<String, Object> opcoes = (HashMap<String, Object>) request.getAttribute("opcoes");
         %>
         <header>
             <script>
@@ -65,9 +64,8 @@
 
             <form method="POST" action="controle" class="form_cadastro">
                 <%if (op.equals(listarPorIdStr) && sessao != null) {%>
-                <input type="hidden" name="id" value="<%if (op.equals(listarPorIdStr) && sessao != null) {
-                        out.print(((SessaoModel) sessao.get("sessao")).getId());
-                    }%>">
+                <input type="hidden" name="id" value="<%out.print(((SessaoModel) sessao.get("sessao")).getId());
+                    %>">
                 <%}%>
                 <input type="hidden" name="model" value="<%out.print(target);%>">
                 <input type="hidden" name="op" value="<%
@@ -103,18 +101,19 @@
                             <option value="">Selecione</option>
                             <%for (SalaModel sala : (List<SalaModel>) opcoes.get("salas")) {
                             %>
-                            <option value="<%out.print(sala.getId());%>" <%if (op.equals(listarPorIdStr) && sala.getId() == ((SalaModel) sessao.get("sala")).getId()) {
-                                    out.print("selected");
-                                }%>><%out.print(sala.getId() + " - " + sala.getCapacidade() + " vagas");
+                            <option value="<%out.print(sala.getId());%>" <%
+                            %>><%out.print(sala.getId() + " - " + sala.getCapacidade() + " vagas");
                                 %></option>
                                 <%}%>
                         </select>
                         <%} else {%>
-                        <h3><%out.print(((SalaModel) sessao.get("sala")).getId());%></h3>
+                        <h3><%
+                            assert sessao != null;
+                            out.print(((SalaModel) sessao.get("sala")).getId());%></h3>
                         <%}%>
                     </div>
                 </div>
-                <input type="submit" value="<%if (op.equals(listarPorIdStr) && sessao != null) {
+                <input type="submit" value="<%if (op.equals(listarPorIdStr)) {
                         out.print("Editar");
                     } else {
                         out.print("Cadastrar");
