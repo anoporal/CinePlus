@@ -30,7 +30,7 @@ public class Controller extends HttpServlet {
                 // exemplo: "command.cliente.ClienteCadastrar"
                 String nomeDaclasse = "command." + paramModel.toLowerCase() + "." + paramModel + paramAction;
                 Class<?> classAction = Class.forName(nomeDaclasse);
-                @SuppressWarnings("deprecation") ICommand commandAction = (ICommand) classAction.newInstance();
+                ICommand commandAction = (ICommand) classAction.newInstance();
 
                 pagina = commandAction.executar(request, response);
             } catch (Exception e) {

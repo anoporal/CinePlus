@@ -87,9 +87,13 @@
                             <option value="">Selecione</option>
                             <%for (FilmeModel filme : (List<FilmeModel>) opcoes.get("filmes")) {
                             %>
-                            <option value="<%out.print(filme.getId());%>" <%if (op.equals(listarPorIdStr) && filme.getId() == ((FilmeModel) sessao.get("filme")).getId()) {
+                            <option value="<%out.print(filme.getId());%>" <%if (op.equals(listarPorIdStr)) {
+                                assert sessao != null;
+                                if (filme.getId() == ((FilmeModel) sessao.get("filme")).getId()) {
                                     out.print("selected");
-                                }%>><%out.print(filme.getTitulo());
+                                }
+                            }
+                            %>><%out.print(filme.getTitulo());
                                 %></option>
                                 <%}%>
                         </select>
