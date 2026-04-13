@@ -60,6 +60,10 @@ public class SessaoCadastrar implements ICommand {
             hashmap.put("sessao", sessao);
 
             sessaoDAO.cadastrar(hashmap);
+            String paginaAnterior = request.getParameter("from");
+            if (paginaAnterior != null) {
+                pagina = "controle?op=ConsultarTodos&model=" + paginaAnterior;
+            }
         } catch (ClassNotFoundException | SQLException | NumberFormatException err) {
             System.out.println("ERRO: " + err);
             request.setAttribute("message", err);

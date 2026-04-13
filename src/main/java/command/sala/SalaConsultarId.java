@@ -39,7 +39,7 @@ public class SalaConsultarId implements ICommand {
             }
 
             request.setAttribute("salas", resultado);
-            pagina = "view/listaSalas.jsp";
+            pagina = "view/cadastroSala.jsp";
         } catch (ClassNotFoundException | SQLException | NumberFormatException err) {
             System.out.println("ERRO: " + err);
             request.setAttribute("message", err);

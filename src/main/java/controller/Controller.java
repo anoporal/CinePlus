@@ -5,6 +5,7 @@
 package controller;
 
 import command.ICommand;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,21 +26,30 @@ public class Controller extends HttpServlet {
         String paramAction = request.getParameter("op");
         String paramModel = request.getParameter("model");
 
-        if (paramAction != null && paramModel != null) {
-            try {
+        try {
+            if (paramAction != null && paramModel != null) {
                 // exemplo: "command.cliente.ClienteCadastrar"
                 String nomeDaclasse = "command." + paramModel.toLowerCase() + "." + paramModel + paramAction;
                 Class<?> classAction = Class.forName(nomeDaclasse);
-                @SuppressWarnings("deprecation") ICommand commandAction = (ICommand) classAction.newInstance();
+                ICommand commandAction = (ICommand) classAction.getDeclaredConstructor().newInstance();
 
                 pagina = commandAction.executar(request, response);
-            } catch (Exception e) {
-                request.setAttribute("message", e.getMessage());
-                pagina = "erro.jsp";
+            } else if (paramModel != null) {
+                // redireciona para tela de cadastro quando a ação não é especificada (acontece ao abrir a controller normalmente)
+                String nomeDaclasse = "command." + paramModel.toLowerCase() + "." + paramModel + "ConsultarCadastro";
+                try {
+                    // tenta criar um "command.cliente.ClienteConsultarCadastro"
+                    Class<?> classAction = Class.forName(nomeDaclasse);
+                    Object commandAction = classAction.getDeclaredConstructor().newInstance();
+                    pagina = ((ICommand) commandAction).executar(request, response);
+                } catch (ClassNotFoundException e) {
+                    // redireciona para "view/cadastroCliente.jsp" caso não haja um "command.cliente.ClienteConsultarCadastro"
+                    pagina = "view/cadastro" + paramModel + ".jsp";
+                }
             }
-        } else if (paramModel != null) {
-            // redireciona para tela de cadastro quando a ação não é especificada (acontece ao abrir a controller normalmente)
-            pagina = "view/cadastro" + paramModel + ".jsp";
+        } catch (Exception e) {
+            request.setAttribute("message", e);
+            pagina = "view/erro.jsp";
         }
         request.getRequestDispatcher(pagina).forward(request, response);
     }

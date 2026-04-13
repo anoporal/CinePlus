@@ -130,7 +130,7 @@ body {
 }
 
 .tabela-cineplus tbody td {
-  padding: 15px;
+  padding: min(15px, 1vw);
   text-align: center;
   /* Centraliza o conteúdo no meio da altura da linha */
   color: white;
@@ -151,13 +151,14 @@ body {
 .celula-filme {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 15px;
   text-align: left;
 }
 
 .mini-poster {
-  width: 40px;
-  height: 60px;
+  max-width: 60px;
+  max-height: 60px;
   border-radius: 5px;
   object-fit: cover;
 }
@@ -168,23 +169,6 @@ body {
   padding: 5px 15px;
   border-radius: 20px;
   font-size: 0.8rem;
-}
-
-.btn-add {
-  text-decoration: none;
-  background: black;
-  color: gold;
-  border-radius: 100%;
-  font-size: 0.8rem;
-  margin-left: 5px;
-  width: 15px;
-  height: 15px;
-  text-align: center;
-  font-family: 'Courier New', Courier, monospace;
-  /* Empurra o + para baixo se ele estiver muito alto */
-  /* OU */
-  display: inline-block;
-  justify-content: center;
 }
 
 .coluna-acoes {
@@ -247,7 +231,6 @@ body {
   flex-direction: column;
   border-radius: 5px;
   right: 0;
-
 }
 
 .menu-editar:hover .opcoes {

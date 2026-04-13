@@ -27,6 +27,13 @@ public class SessaoConsultarCadastro implements ICommand {
     @Override
     public String executar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pagina;
+        Integer idSala;
+
+        try {
+            idSala = Integer.valueOf(request.getParameter("idSala"));
+        } catch (NumberFormatException e) {
+            idSala = null;
+        }
 
         SalaDAO salaDAO = new SalaDAO();
         FilmeDAO filmeDAO = new FilmeDAO();
@@ -37,6 +44,9 @@ public class SessaoConsultarCadastro implements ICommand {
             opcoes.put("salas", salas);
             opcoes.put("filmes", filmes);
 
+            if (idSala != null) {
+                request.setAttribute("idSala", idSala);
+            }
             request.setAttribute("opcoes", opcoes);
             pagina = "view/cadastroSessao.jsp";
         } catch (ClassNotFoundException | SQLException | NumberFormatException err) {

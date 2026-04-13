@@ -40,7 +40,7 @@ public class IngressoConsultarCadastro implements ICommand {
             ClienteModel resultadoCliente = clienteDAO.consultarById(cliente);
             request.setAttribute("cliente", resultadoCliente);
             request.setAttribute("opcoes", resultadosOpcoes);
-            pagina = "view/formIngresso.jsp";
+            pagina = "view/cadastroIngresso.jsp";
         } catch (ClassNotFoundException | SQLException | NumberFormatException err) {
             System.out.println("ERRO: " + err);
             request.setAttribute("message", err);
