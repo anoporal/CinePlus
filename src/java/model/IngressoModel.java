@@ -40,7 +40,7 @@ public class IngressoModel {
 
     public static class IngressoBuilder {
 
-        private IngressoModel ingresso = new IngressoModel();
+        private final IngressoModel ingresso = new IngressoModel();
 
         public IngressoBuilder comId(int id) {
             ingresso.id = id;

@@ -23,7 +23,7 @@ public class PagamentoDAO {
         PreparedStatement comando = con.prepareStatement("insert into Pagamento (valor, formaPagamento) values (?, ?)", Statement.RETURN_GENERATED_KEYS);
         comando.setDouble(1, pagamento.getValor());
         comando.setString(2, pagamento.getFormaPagamento());
-        Integer idGerado = comando.executeUpdate();
+        int idGerado = comando.executeUpdate();
 
         if (idGerado == 0) {
             throw new SQLException("Falha na criação de Pagamento, nenhuma linha afetada.");
@@ -48,7 +48,7 @@ public class PagamentoDAO {
         comando.execute();
         con.close();
     }
-    
+
     public void atualizar(PagamentoModel pagamento) throws ClassNotFoundException, SQLException {
         Connection con = FabricaConexao.getConexao();
         PreparedStatement comando = con.prepareStatement("update Pagamento set valor = ?, formaPagamento = ? where idPagamento = ?");
@@ -58,7 +58,7 @@ public class PagamentoDAO {
         comando.execute();
         con.close();
     }
-    
+
     public PagamentoModel consultarById(PagamentoModel pagamento) throws ClassNotFoundException, SQLException {
         Connection con = FabricaConexao.getConexao();
         PreparedStatement comando = con.prepareStatement("select * from Pagamento where idPagamento = ?");

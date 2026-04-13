@@ -1,0 +1,122 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/*
+    Created on : 9 de abr. de 2026, 14:29:04
+    Author     : PC
+*/
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0d2c40; /* Azul marinho da imagem */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.container-geral {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.header-topo {
+    margin-top: 25px; /* Espaço entre o topo da página e a imagem */
+    width: 650px; /* Largura da sua imagem */
+    height: 200px; /* Altura da sua imagem */
+    background-image: url('../../images/letreiroFilme.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.layout-principal {
+    width: 95%;
+}
+
+.tabela-filme {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 1px 20px; /* Cria o efeito de "barrinhas" separadas */
+}
+
+/* Cabeçalho Amarelo (Inspirado na imagem 2) */
+.tabela-filme thead th {
+    background: linear-gradient(to bottom, #ffcc00, #ff9900);
+    color: black;
+    padding: min(15px, 1vw);
+    text-transform: uppercase;
+    font-size: 12px;
+    border: none;
+}
+
+/* Arredondar pontas do cabeçalho */
+.tabela-filme thead th:first-child {
+    border-radius: 12px 0 0 12px;
+}
+
+.tabela-filme thead th:last-child {
+    border-radius: 0 12px 12px 0;
+}
+
+/* Linhas da Tabela */
+.tabela-filme td {
+    background-color: #ffffff; /* Linha inteira branca */
+    transition: background-color 0.2s;
+    padding: min(20px, 1vw);
+    color: #000000; /* Texto preto para Cliente, Telefone, etc */
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;
+    font-size: 0.95rem;
+
+    /* COMANDO DE ALINHAMENTO GERAL:
+       Pode ser 'left', 'center' ou 'right' */
+    text-align: center;
+}
+
+.info-sessao-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-sessao-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-sessao {
+    padding: min(5px, 0.5vw);
+    margin: 0;
+}
+
+.tabela-filme tbody td:first-child {
+    border-radius: 12px 0 0 12px;
+    border-left: 1px solid #1a2a3a;
+}
+
+.tabela-filme tbody td:last-child {
+    border-radius: 0 12px 12px 0;
+    border-right: 1px solid #1a2a3a;
+}
+
+.tabela-filme tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+.btn-excluir {
+    color: #ff4d4d;
+    font-size: 1.0rem;
+}
+
+.btn-editar {
+    color: black;
+    font-size: 1.0rem;
+}

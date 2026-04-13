@@ -35,7 +35,7 @@ public class PagamentoModel {
 
     public static class PagamentoBuilder {
 
-        private PagamentoModel pagamento = new PagamentoModel();
+        private final PagamentoModel pagamento = new PagamentoModel();
 
         public PagamentoBuilder comId(int id) {
             pagamento.id = id;

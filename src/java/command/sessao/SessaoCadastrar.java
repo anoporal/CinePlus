@@ -12,7 +12,7 @@ import dao.SalaDAO;
 import dao.SessaoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Hashtable;
+import java.util.HashMap;
 import javax.servlet.ServletException;
 import model.FilmeModel;
 import model.SalaModel;
@@ -55,11 +55,15 @@ public class SessaoCadastrar implements ICommand {
                     .comFilme(filme)
                     .constroi();
 
-            Hashtable hashtable = new Hashtable<>();
-            hashtable.put("sala", sala);
-            hashtable.put("sessao", sessao);
+            HashMap<String, Object> hashmap = new HashMap<>();
+            hashmap.put("sala", sala);
+            hashmap.put("sessao", sessao);
 
-            sessaoDAO.cadastrar(hashtable);
+            sessaoDAO.cadastrar(hashmap);
+            String paginaAnterior = request.getParameter("from");
+            if (paginaAnterior != null) {
+                pagina = "controle?op=ConsultarTodos&model=" + paginaAnterior;
+            }
         } catch (ClassNotFoundException | SQLException | NumberFormatException err) {
             System.out.println("ERRO: " + err);
             request.setAttribute("message", err);

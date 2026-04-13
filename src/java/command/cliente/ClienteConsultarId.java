@@ -32,7 +32,7 @@ public class ClienteConsultarId implements ICommand {
         try {
             ClienteModel resultadoCliente = clienteDAO.consultarById(cliente);
 
-            ArrayList resultado = new ArrayList<>();
+            ArrayList<ClienteModel> resultado = new ArrayList<>();
             if (resultadoCliente.getNome() != null && resultadoCliente.getEmail() != null) {
                 resultado.add(resultadoCliente);
             }

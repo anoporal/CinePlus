@@ -38,10 +38,6 @@ public class ClienteModel {
         return ingressos;
     }
 
-    public void comprarIngresso(List<IngressoModel> ingressos) {
-        this.ingressos = ingressos;
-    }
-
     public ClienteModel() {
     }
 
@@ -51,7 +47,7 @@ public class ClienteModel {
 
     public static class ClienteBuilder {
 
-        private ClienteModel cliente = new ClienteModel();
+        private final ClienteModel cliente = new ClienteModel();
 
         public ClienteBuilder comId(int id) {
             cliente.id = id;

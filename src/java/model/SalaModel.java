@@ -37,7 +37,7 @@ public class SalaModel {
 
     public static class SalaBuilder {
 
-        private SalaModel sala = new SalaModel();
+        private final SalaModel sala = new SalaModel();
 
         public SalaBuilder comId(int id) {
             sala.id = id;

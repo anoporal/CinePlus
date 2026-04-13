@@ -1,0 +1,41 @@
+.menu-models {
+  top: 0;
+  left: 0;
+  position: absolute;
+  display: flex;
+}
+
+.menu-opcoes {
+  display: none;
+  /* Escondido por padrão */
+  position: relative;
+  background: white;
+  color: black;
+  z-index: 10;
+  flex-direction: column;
+  border-radius: 5px;
+  right: 0;
+}
+
+.btn-menu {
+  width: 50px;
+  height: 35px;
+  border-radius: 35px;
+  margin: 5px;
+}
+
+.menu-models:hover .menu-opcoes {
+  display: flex;
+}
+
+.menu-opcoes a {
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  font-size: 0.8rem;
+  border-radius: 5px;
+}
+
+.menu-opcoes a:hover {
+  background-color: #eee;
+}

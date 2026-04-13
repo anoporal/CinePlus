@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import model.FilmeModel;
 import model.SalaModel;
@@ -24,14 +24,14 @@ import util.FabricaConexao;
  */
 public class SessaoDAO {
 
-    public void cadastrar(Hashtable hashtable) throws ClassNotFoundException, SQLException {
+    public void cadastrar(HashMap<String, Object> hashmap) throws ClassNotFoundException, SQLException {
         Connection con = FabricaConexao.getConexao();
         PreparedStatement comando = con.prepareStatement("insert into Sessao (idFilme, dataHora) values (?, ?)", Statement.RETURN_GENERATED_KEYS);
 
-        comando.setInt(1, ((SessaoModel) hashtable.get("sessao")).getFilme().getId());
-        comando.setTimestamp(2, new Timestamp(((SessaoModel) hashtable.get("sessao")).getDataHora().getTime()));
+        comando.setInt(1, ((SessaoModel) hashmap.get("sessao")).getFilme().getId());
+        comando.setTimestamp(2, new Timestamp(((SessaoModel) hashmap.get("sessao")).getDataHora().getTime()));
 
-        Integer idGerado = comando.executeUpdate();
+        int idGerado = comando.executeUpdate();
 
         if (idGerado == 0) {
             throw new SQLException("Falha na criação de Sessao, nenhuma linha afetada.");
@@ -46,7 +46,7 @@ public class SessaoDAO {
         }
 
         comando = con.prepareStatement("insert into SessoesSala (idSala, idSessao) values (?, ?)");
-        comando.setInt(1, ((SalaModel) hashtable.get("sala")).getId());
+        comando.setInt(1, ((SalaModel) hashmap.get("sala")).getId());
         comando.setInt(2, idGerado);
 
         comando.execute();
@@ -70,13 +70,13 @@ public class SessaoDAO {
         con.close();
     }
 
-    public Hashtable consultarById(SessaoModel sessao) throws ClassNotFoundException, SQLException {
+    public HashMap<String, Object> consultarById(SessaoModel sessao) throws ClassNotFoundException, SQLException {
         Connection con = FabricaConexao.getConexao();
         PreparedStatement comando = con.prepareStatement("SELECT f.titulo, se.idSessao, se.dataHora, f.idFilme, f.duracao, f.genero, sa1.idSala, (sa1.capacidade - ((SELECT COUNT(i.idIngresso) FROM SessoesSala sesa JOIN Ingresso i ON i.idSessao = sesa.idSessao WHERE sesa.idSala = sa1.idSala AND sesa.idSessao = se.idSessao))) AS vagasDisponiveis FROM Sala sa1 JOIN SessoesSala sesa ON sesa.idSala = sa1.idSala JOIN Sessao se ON sesa.idSessao = se.idSessao JOIN Filme f ON f.idFilme = se.idFilme WHERE se.idSessao = ? GROUP BY se.idSessao, f.titulo ORDER BY se.dataHora ASC, vagasDisponiveis ASC, f.titulo ASC");
         comando.setInt(1, sessao.getId());
         ResultSet rs = comando.executeQuery();
 
-        Hashtable<String, Object> hashtable = new Hashtable<>();
+        HashMap<String, Object> hashmap = new HashMap<>();
         if (rs.next()) {
             FilmeModel filme = FilmeModel.getBuilder()
                     .comId(rs.getInt("idFilme"))
@@ -84,51 +84,51 @@ public class SessaoDAO {
                     .comDuracao(rs.getInt("duracao"))
                     .comGenero(rs.getString("genero"))
                     .constroi();
-            hashtable.put("filme", filme);
+            hashmap.put("filme", filme);
             SessaoModel ses = SessaoModel.getBuilder()
                     .comId(rs.getInt("idsessao"))
                     .comDataHora(rs.getString("dataHora"))
                     .comFilme(filme)
                     .constroi();
-            hashtable.put("sessao", ses);
+            hashmap.put("sessao", ses);
             SalaModel sal = SalaModel.getBuilder()
                     .comId(rs.getInt("idsala"))
                     .comCapacidade(rs.getInt("vagasDisponiveis"))
                     .constroi();
-            hashtable.put("sala", sal);
+            hashmap.put("sala", sal);
         }
         con.close();
-        return hashtable;
+        return hashmap;
     }
 
-    public List<Hashtable> consultarTodos() throws ClassNotFoundException, SQLException {
+    public List<HashMap<String, Object>> consultarTodos() throws ClassNotFoundException, SQLException {
         Connection con = FabricaConexao.getConexao();
         Statement statement = con.createStatement();
         statement.execute("SELECT f.titulo, se.idSessao, se.dataHora, f.idFilme, f.duracao, f.genero, sa1.idSala, (sa1.capacidade - ((SELECT COUNT(i.idIngresso) FROM SessoesSala sesa JOIN Ingresso i ON i.idSessao = sesa.idSessao WHERE sesa.idSala = sa1.idSala AND sesa.idSessao = se.idSessao))) AS vagasDisponiveis FROM Sala sa1 JOIN SessoesSala sesa ON sesa.idSala = sa1.idSala JOIN Sessao se ON sesa.idSessao = se.idSessao JOIN Filme f ON f.idFilme = se.idFilme GROUP BY se.idSessao, f.titulo ORDER BY se.dataHora ASC, vagasDisponiveis ASC, f.titulo ASC;");
         ResultSet rs = statement.getResultSet();
 
-        List<Hashtable> listses = new ArrayList<>();
+        List<HashMap<String, Object>> listses = new ArrayList<>();
         while (rs.next()) {
-            Hashtable<String, Object> hashtable = new Hashtable<>();
+            HashMap<String, Object> hashmap = new HashMap<>();
             FilmeModel filme = FilmeModel.getBuilder()
                     .comTitulo(rs.getString("titulo"))
                     .comDuracao(rs.getInt("duracao"))
                     .comGenero(rs.getString("genero"))
                     .comId(rs.getInt("idFilme"))
                     .constroi();
-            hashtable.put("filme", filme);
+            hashmap.put("filme", filme);
             SessaoModel ses = SessaoModel.getBuilder()
                     .comId(rs.getInt("idsessao"))
                     .comDataHora(rs.getString("dataHora"))
                     .comFilme(filme)
                     .constroi();
-            hashtable.put("sessao", ses);
+            hashmap.put("sessao", ses);
             SalaModel sal = SalaModel.getBuilder()
                     .comId(rs.getInt("idsala"))
                     .comCapacidade(rs.getInt("vagasDisponiveis"))
                     .constroi();
-            hashtable.put("sala", sal);
-            listses.add(hashtable);
+            hashmap.put("sala", sal);
+            listses.add(hashmap);
         }
         con.close();
         return listses;

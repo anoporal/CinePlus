@@ -1,0 +1,190 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/*
+    Created on : 11 de abr. de 2026, 09:28:49
+    Author     : PC
+*/
+
+/* CSS TOTALMENTE REVISADO */
+
+:root {
+    --bg-color: #0d2c40; /* Fundo escuro levemente azulado */
+    --neon-red: #ff3131;
+    --neon-shadow: 0 0 15px rgba(255, 49, 49, 0.8), 0 0 5px rgba(255, 49, 49, 0.5);
+    --text-white: #ffffff;
+    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-white);
+    font-family: var(--font-main), serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa toda a altura da janela */
+    width: 100vw; /* Ocupa toda a largura da janela */
+    overflow: hidden; /* Evita scrolls desnecessários */
+}
+
+.main-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-container {
+    display: flex;
+    width: 95%; /* Ocupa quase toda a largura */
+    max-width: 1400px; /* Aumentado para expandir horizontalmente */
+    height: 65vh; /* Altura generosa para expandir verticalmente */
+    align-items: center;
+    gap: 20px;
+
+}
+
+/* Painéis Esquerdo e Direito */
+.panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+}
+
+.neon-title {
+    font-family: 'Brush Script MT', cursive;
+    font-size: min(6rem, 10vw); /* Título bem grande */
+    color: #ffbaba;
+    text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red), 0 0 30px var(--neon-red);
+    margin: 0 0 40px 0;
+}
+
+/* Seção da Sala (Esquerda) */
+.sala-content {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Divisor Central */
+.divider {
+    width: 3px;
+    height: 80%; /* Altura maior para acompanhar o container */
+    background: white;
+    box-shadow: 0 0 15px white, 0 0 5px white;
+    margin: 0 30px;
+}
+
+/* Seção da Sessão (Direita) */
+.sessao-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Formulários e Inputs */
+.form-neon {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Espaçamento maior entre campos */
+    width: 100%;
+    max-width: 450px; /* Mantém o formulário legível */
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    color: var(--neon-red);
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+input, select {
+    background: transparent;
+    border: 2px solid var(--neon-red);
+    border-radius: 15px;
+    padding: 18px 25px; /* Padding maior para expandir os campos */
+    color: var(--neon-red);
+    box-shadow: var(--neon-shadow);
+    outline: none;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+input::placeholder {
+    color: rgba(255, 49, 49, 0.4);
+}
+
+select option {
+    background: var(--bg-color);
+    color: var(--neon-red);
+}
+
+/* Botões */
+.btn-neon {
+    background: transparent;
+    border: 2px solid var(--neon-red);
+    color: var(--neon-red);
+    padding: 15px 30px; /* Botões maiores */
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: var(--neon-shadow);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    margin-top: 15px;
+    align-self: flex-start;
+}
+
+.btn-neon:hover {
+    background: var(--neon-red);
+    color: white;
+    box-shadow: 0 0 30px var(--neon-red), 0 0 10px var(--neon-red);
+}
+
+.btn-voltar {
+    margin-top: 30px;
+    background: transparent;
+    border: 2px solid var(--neon-red);
+    color: var(--neon-red);
+    padding: 15px 80px; /* Botão voltar maior */
+    border-radius: 20px;
+    box-shadow: var(--neon-shadow);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.btn-voltar:hover {
+    background: var(--neon-red);
+    color: white;
+    box-shadow: 0 0 30px var(--neon-red);
+}
+
+/* Responsividade básica para telas menores */
+@media (max-width: 1100px) {
+    .main-container { flex-direction: column; height: auto; padding: 40px 0;}
+    .sessao-section { flex-direction: column; }
+    .neon-title { text-align: center }
+    .divider { display: none; }
+    .sala-content { flex-direction: column; height: auto;}
+    .sala-header-image { width: 100%; max-width: 350px; height: 300px;}
+    .main-screen { overflow-y: auto;}
+}

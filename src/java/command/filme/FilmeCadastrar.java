@@ -35,6 +35,10 @@ public class FilmeCadastrar implements ICommand {
                 .constroi();
         try {
             filmeDAO.cadastrar(filme);
+            String paginaAnterior = request.getParameter("from");
+            if (paginaAnterior != null) {
+                pagina = "controle?op=ConsultarTodos&model=" + paginaAnterior;
+            }
         } catch (ClassNotFoundException | SQLException | NumberFormatException err) {
             System.out.println("ERRO: " + err);
             request.setAttribute("message", err);

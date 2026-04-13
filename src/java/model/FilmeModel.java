@@ -40,7 +40,7 @@ public class FilmeModel {
 
     public static class FilmeBuilder {
 
-        private FilmeModel filme = new FilmeModel();
+        private final FilmeModel filme = new FilmeModel();
 
         public FilmeBuilder comId(int id) {
             filme.id = id;

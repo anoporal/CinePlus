@@ -70,13 +70,11 @@ public class ClienteDAO {
             }
 
             ArrayList<IngressoModel> listaIng = new ArrayList<>();
-            if (listaIngressos != null) {
-                for (String ingresso : listaIngressos) {
-                    IngressoModel ing = IngressoModel.getBuilder()
-                            .comId(Integer.parseInt(ingresso.trim()))
-                            .constroi();
-                    listaIng.add(ing);
-                }
+            for (String ingresso : listaIngressos) {
+                IngressoModel ing = IngressoModel.getBuilder()
+                        .comId(Integer.parseInt(ingresso.trim()))
+                        .constroi();
+                listaIng.add(ing);
             }
             clibuild.comId(rs.getInt("idcliente"))
                     .comNome(rs.getString("nome"))
@@ -107,13 +105,11 @@ public class ClienteDAO {
             }
 
             ArrayList<IngressoModel> listaIng = new ArrayList<>();
-            if (listaIngressos != null) {
-                for (String ingresso : listaIngressos) {
-                    IngressoModel ing = IngressoModel.getBuilder()
-                            .comId(Integer.parseInt(ingresso.trim()))
-                            .constroi();
-                    listaIng.add(ing);
-                }
+            for (String ingresso : listaIngressos) {
+                IngressoModel ing = IngressoModel.getBuilder()
+                        .comId(Integer.parseInt(ingresso.trim()))
+                        .constroi();
+                listaIng.add(ing);
             }
 
             ClienteModel c = ClienteModel.getBuilder()
