@@ -1,0 +1,119 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/*
+    Created on : 8 de abr. de 2026, 16:45:21
+    Author     : PC
+*/
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0d2c40; /* Azul marinho da imagem */
+    font-family: 'Georgia', serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Topo: Rolo de Filme */
+.movie-header {
+    margin-top: 25px;       /* Espaço entre o topo da página e a imagem */
+    width: 650px;           /* Largura da sua imagem */
+    height: 200px;          /* Altura da sua imagem */
+    background-image: url('../../images/letreiroFilme.jpeg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.movie-header h1 {
+    color: #ffcc00;
+    font-size: 3rem;
+    font-style: italic;
+    text-transform: uppercase;
+    margin: 0;
+    letter-spacing: 5px;
+}
+
+/* Container Principal (Dividido em duas colunas) */
+.main-content {
+    display: flex;
+    width: 80%;
+    max-width: 900px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+}
+
+/* Coluna da Esquerda: Inputs */
+.form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Estilo da Label Dourada */
+.label-gold {
+    border: 2px solid #d4af37;
+    outline: 1px solid #d4af37;
+    outline-offset: 2px;
+    border-radius: 50px;
+    padding: 5px 25px;
+    width: fit-content;
+    font-size: 1.2rem;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Estilo do Campo de Input (Simulando a moldura do Canva) */
+.input-field {
+  width: 300px;
+    padding: 20px;
+    border-radius: 15px;
+    border: 4px solid #fc0000;
+    outline: none;
+    background-color: #fbedc1;
+
+    /* efeito de luz */
+    box-shadow: 0 0 5px #ffae00, 0 0 10px #ffae00;
+
+    animation: piscar 1s infinite alternate;
+}
+
+
+
+/* Coluna da Direita: Botões */
+.button-column {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+}
+
+/* Botões Estilizados */
+.btn-action {
+    background: transparent;
+    color: #fff;
+    border: 3px double #d4af37; /* Borda dupla dourada */
+    border-radius: 50px;
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: 0.3s;
+    min-width: 180px;
+}
+
+.btn-action:hover {
+    background-color: rgba(212, 175, 55, 0.2);
+    transform: scale(1.05);
+}

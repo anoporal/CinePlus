@@ -33,13 +33,13 @@ public class SalaConsultarId implements ICommand {
         try {
             SalaModel resultadoSala = salaDAO.consultarById(sala);
 
-            ArrayList resultado = new ArrayList<>();
+            ArrayList<SalaModel> resultado = new ArrayList<>();
             if (resultadoSala.getCapacidade() > 0) {
                 resultado.add(resultadoSala);
             }
 
             request.setAttribute("salas", resultado);
-            pagina = "view/listaSalas.jsp";
+            pagina = "view/cadastroSala.jsp";
         } catch (ClassNotFoundException | SQLException | NumberFormatException err) {
             System.out.println("ERRO: " + err);
             request.setAttribute("message", err);

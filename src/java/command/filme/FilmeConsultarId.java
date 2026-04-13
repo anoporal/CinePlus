@@ -33,13 +33,13 @@ public class FilmeConsultarId implements ICommand {
         try {
             filme = filmeDAO.consultarById(filme);
 
-            ArrayList resultado = new ArrayList<>();
+            ArrayList<FilmeModel> resultado = new ArrayList<>();
             if (filme.getTitulo() != null) {
                 resultado.add(filme);
             }
 
             request.setAttribute("filmes", resultado);
-            pagina = "view/listaFilmes.jsp";
+            pagina = "view/cadastroFilme.jsp";
         } catch (ClassNotFoundException | SQLException | NumberFormatException err) {
             System.out.println("ERRO: " + err);
             request.setAttribute("message", err);

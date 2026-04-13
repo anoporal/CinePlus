@@ -1,0 +1,16 @@
+.btn-add {
+    text-decoration: none;
+    background: black;
+    color: gold;
+    border-radius: 100%;
+    font-size: 0.8rem;
+    margin-left: 5px;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    /* Empurra o + para baixo se ele estiver muito alto */
+    /* OU */
+    display: inline-block;
+    justify-content: center;
+}

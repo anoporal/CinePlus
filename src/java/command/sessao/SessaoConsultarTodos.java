@@ -10,7 +10,7 @@ import command.ICommand;
 import dao.SessaoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
 
@@ -26,7 +26,7 @@ public class SessaoConsultarTodos implements ICommand {
 
         SessaoDAO sessaoDAO = new SessaoDAO();
         try {
-            List<Hashtable> listses = sessaoDAO.consultarTodos();
+            List<HashMap<String, Object>> listses = sessaoDAO.consultarTodos();
 
             request.setAttribute("sessoes", listses);
             pagina = "view/listaSessoes.jsp";

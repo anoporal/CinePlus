@@ -1,0 +1,185 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/*
+    Created on : 11 de abr. de 2026, 12:55:02
+    Author     : PC
+*/
+
+/* 1. Configuração Global e Fundo */
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* FUNDO */
+body {
+    background-color: #0d2c40;
+}
+
+/* CONTAINER PRINCIPAL */
+.main-container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 40px;
+}
+
+.ingresso-header {
+    width: 500px;
+    height: 200px; /* altura do letreiro */
+    margin: 0 auto 40px auto;
+
+    background-image: url('../../images/ingresso.jpeg'); /* coloca sua imagem aqui */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    border-radius: 10px;
+}
+
+/* LAYOUT FORM */
+.ingresso-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: baseline;
+    justify-items: center;
+    margin-top: 40px;
+    justify-content: center;
+}
+
+/* COLUNAS */
+.col-client-value,
+.col-sessao,
+.col-pagamento {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* LABEL (Cliente, Sessão, etc) */
+.label-pill {
+    padding: 8px 25px;
+    border-radius: 30px;
+    margin-bottom: 10px;
+    border: 2px solid #e5c96d;
+    color: black;
+    font-weight: bold;
+
+    background: linear-gradient(45deg, #caa64a, #f7e08a);
+}
+
+/* INPUT DOURADO */
+.input-gold {
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    background: linear-gradient(45deg, #caa64a, #f7e08a);
+    color: black;
+    font-weight: bold;
+    min-width: 200px;
+    text-align: center;
+}
+
+/* SELECT */
+select.input-gold {
+    appearance: none;
+}
+
+/* WRAPPER SELECT (setinha) */
+.custom-select-wrapper {
+    position: relative;
+}
+
+.icon-dropdown {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    pointer-events: none;
+    font-size: 14px;
+}
+
+/* VALUE (valor com lápis) */
+.value-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 150px;
+    padding: 0;
+}
+
+.input-gold-inner {
+    border: none;
+    background: transparent;
+    width: 100%;
+    font-weight: bold;
+    outline: none;
+    padding: 10px 20px;
+}
+
+/* ESPAÇAMENTO */
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+/* BOTÕES */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 80px;
+    grid-column: 1/-1;
+}
+
+.btn-ticket {
+    padding: 15px 40px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    background: linear-gradient(45deg, #caa64a, #f7e08a, #caa64a);
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+
+/* EFEITO HOVER */
+.btn-ticket:hover {
+    transform: scale(1.05);
+}
+
+.info-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Responsividade básica para telas menores */
+@media (max-width: 860px) {
+    .ingresso-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .col-client-value {
+        flex-direction: row;
+    }
+
+    .col-sessao,
+    .col-pagamento {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+}

@@ -11,7 +11,7 @@ import dao.ClienteDAO;
 import dao.IngressoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
 import model.ClienteModel;
@@ -35,12 +35,12 @@ public class IngressoConsultarCadastro implements ICommand {
                 .comId(idCliente)
                 .constroi();
         try {
-            List<Hashtable> resultadosOpcoes = ingressoDAO.consultarDisponibilidade();
+            List<HashMap<String, Object>> resultadosOpcoes = ingressoDAO.consultarDisponibilidade();
 
             ClienteModel resultadoCliente = clienteDAO.consultarById(cliente);
             request.setAttribute("cliente", resultadoCliente);
             request.setAttribute("opcoes", resultadosOpcoes);
-            pagina = "view/formIngresso.jsp";
+            pagina = "view/cadastroIngresso.jsp";
         } catch (ClassNotFoundException | SQLException | NumberFormatException err) {
             System.out.println("ERRO: " + err);
             request.setAttribute("message", err);

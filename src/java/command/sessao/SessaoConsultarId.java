@@ -12,7 +12,7 @@ import dao.SalaDAO;
 import dao.SessaoDAO;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.ServletException;
 import model.FilmeModel;
@@ -38,11 +38,11 @@ public class SessaoConsultarId implements ICommand {
         SalaDAO salaDAO = new SalaDAO();
         FilmeDAO filmeDAO = new FilmeDAO();
         try {
-            Hashtable resultadoSessao = sessaoDAO.consultarById(sessao);
+            HashMap<String, Object> resultadoSessao = sessaoDAO.consultarById(sessao);
 
             List<SalaModel> salas = salaDAO.consultarTodos();
             List<FilmeModel> filmes = filmeDAO.consultarTodos();
-            Hashtable opcoes = new Hashtable<>();
+            HashMap<String, Object> opcoes = new HashMap<>();
             opcoes.put("salas", salas);
             opcoes.put("filmes", filmes);
 

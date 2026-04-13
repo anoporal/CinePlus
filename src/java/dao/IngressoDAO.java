@@ -10,7 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.HashMap;
 import java.util.List;
 import model.ClienteModel;
 import util.FabricaConexao;
@@ -54,7 +55,7 @@ public class IngressoDAO {
 
     public void atualizar(IngressoModel ingresso) throws ClassNotFoundException, SQLException {
         Connection con = FabricaConexao.getConexao();
-        PreparedStatement comando = con.prepareStatement("update Ingresso set idSessao = ?, pagamento = ?  where idCliente = ?");
+        PreparedStatement comando = con.prepareStatement("update Ingresso set idSessao = ?, idPagamento = ?  where idCliente = ?");
         comando.setInt(1, ingresso.getSessao().getId());
         comando.setString(2, (ingresso.getPagamento().getFormaPagamento()));
         comando.setInt(3, ingresso.getCliente().getId());
@@ -87,31 +88,31 @@ public class IngressoDAO {
         return ing.constroi();
     }
 
-    public List<Hashtable> consultarDisponibilidade() throws ClassNotFoundException, SQLException {
+    public List<HashMap<String, Object>> consultarDisponibilidade() throws ClassNotFoundException, SQLException {
         Connection con = FabricaConexao.getConexao();
         Statement comando = con.createStatement();
         comando.execute("WITH CinematicData AS (SELECT se.idSessao, se.dataHora, sa.idSala, f.titulo, sa.capacidade - (SELECT COUNT(i.idIngresso) FROM Ingresso i WHERE i.idSessao = se.idSessao) AS capacidadeRestante FROM SessoesSala sesa LEFT JOIN Sessao se ON sesa.idSessao = se.idSessao LEFT JOIN Filme f ON f.idFilme = se.idFilme LEFT JOIN Sala sa ON sa.idSala = sesa.idSala) SELECT * FROM CinematicData WHERE capacidadeRestante > 0;");
         ResultSet rs = comando.getResultSet();
 
-        ArrayList<Hashtable> listOpcoes = new ArrayList<>();
+        ArrayList<HashMap<String, Object>> listOpcoes = new ArrayList<>();
         while (rs.next()) {
-            Hashtable<String, Object> hashtable = new Hashtable<>();
+            HashMap<String, Object> hashmap = new HashMap<>();
             FilmeModel filme = FilmeModel.getBuilder()
                     .comTitulo(rs.getString("titulo"))
                     .constroi();
-            hashtable.put("filme", filme);
+            hashmap.put("filme", filme);
             SessaoModel sessao = SessaoModel.getBuilder()
                     .comDataHora(rs.getString("dataHora"))
                     .comId(rs.getInt("idSessao"))
                     .comFilme(filme)
                     .constroi();
-            hashtable.put("sessao", sessao);
+            hashmap.put("sessao", sessao);
             SalaModel sala = SalaModel.getBuilder()
                     .comId(rs.getInt("idSala"))
                     .comCapacidade(rs.getInt("capacidadeRestante"))
                     .constroi();
-            hashtable.put("sala", sala);
-            listOpcoes.add(hashtable);
+            hashmap.put("sala", sala);
+            listOpcoes.add(hashmap);
         }
         con.close();
         return listOpcoes;

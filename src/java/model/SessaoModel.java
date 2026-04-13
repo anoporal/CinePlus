@@ -4,7 +4,6 @@
  */
 package model;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -41,7 +40,7 @@ public class SessaoModel {
 
     public static class SessaoBuilder {
 
-        private SessaoModel sessao = new SessaoModel();
+        private final SessaoModel sessao = new SessaoModel();
 
         public SessaoBuilder comId(int id) {
             sessao.id = id;
@@ -50,11 +49,10 @@ public class SessaoModel {
 
         public SessaoBuilder comDataHora(String sqlDataHora) {
             try {
-                DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ROOT);
-                Date novaDataHora = format.parse(sqlDataHora);
-                sessao.dataHora = novaDataHora;
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ROOT);
+                sessao.dataHora = format.parse(sqlDataHora);
             } catch (ParseException ex) {
-                System.getLogger(SessaoModel.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                System.out.println(ex.getMessage());
             }
             return this;
         }

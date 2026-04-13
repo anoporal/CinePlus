@@ -24,13 +24,19 @@ public class FilmeAtualizar implements ICommand {
         String pagina = "controle?op=ConsultarTodos&model=Filme";
 
         int id = Integer.parseInt(request.getParameter("id"));
+        String titulo = request.getParameter("titulo");
+        String genero = request.getParameter("genero");
+        int duracao = Integer.parseInt(request.getParameter("duracao"));
 
         FilmeDAO filmeDAO = new FilmeDAO();
         FilmeModel filme = FilmeModel.getBuilder()
                 .comId(id)
+                .comTitulo(titulo)
+                .comGenero(genero)
+                .comDuracao(duracao)
                 .constroi();
         try {
-            filmeDAO.deletar(filme);
+            filmeDAO.atualizar(filme);
         } catch (ClassNotFoundException | SQLException | NumberFormatException err) {
             System.out.println("ERRO: " + err);
             request.setAttribute("message", err);
