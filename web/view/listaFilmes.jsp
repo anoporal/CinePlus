@@ -7,6 +7,7 @@
 <%@page import="model.FilmeModel" %>
 <%@page import="java.util.List" %>
 <%@ page import="util.NomesModel" %>
+<%@ page import="util.AcoesCommand" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -21,10 +22,7 @@
 </head>
 <body>
 <%
-    NomesModel model = NomesModel.Filme;
-    String listarPorIdStr = "ConsultarId";
-    String listarTodosStr = "ConsultarTodos";
-    String deletarStr = "Deletar";
+    NomesModel filmeEnum = NomesModel.FILME;
     List<FilmeModel> lfilm = (List<FilmeModel>) request.getAttribute("filmes");
 %>
 
@@ -34,9 +32,9 @@
 
     <div class="menu-opcoes">
         <%for (NomesModel nomeModel : NomesModel.values()) {
-            if (nomeModel == model) continue;
-            if (nomeModel == NomesModel.Ingresso) continue;%>
-        <a href="controle?op=<%out.print(listarTodosStr);%>&model=<%out.print(nomeModel);%>"><%out.print(nomeModel);%></a>
+            if (nomeModel.getSingular().equals(filmeEnum.getSingular())) continue;
+            if (nomeModel.getSingular().equals(NomesModel.INGRESSO.getSingular())) continue;%>
+        <a href="controle?op=<%out.print(AcoesCommand.CONSULTAR_TODOS.getAcao());%>&model=<%out.print(nomeModel.getSingularSemAcento());%>"><%out.print(nomeModel.getPlural());%></a>
         <%}%>
     </div>
 </div>
@@ -50,7 +48,7 @@
             <table class="tabela-filme">
                 <thead>
                 <tr>
-                    <th>ID<a href="controle?model=<%out.print(model);%>&from=<%out.print(model);%>" class="btn-add">+</a></th>
+                    <th>ID<a href="controle?model=<%out.print(filmeEnum.getSingularSemAcento());%>&from=<%out.print(filmeEnum.getSingularSemAcento());%>" class="btn-add">+</a></th>
                     <th>Título</th>
                     <th>Gênero</th>
                     <th>Duração</th>
@@ -68,11 +66,11 @@
                     <td><%out.print(f.getGenero());%></td>
                     <td><%out.print(f.getDuracao() + " minutos");%></td>
                     <td class="coluna-acoes">
-                        <a href="controle?op=<%out.print(listarPorIdStr);%>&id=<%out.print(f.getId());%>&model=<%out.print(model);%>&from=<%out.print(model);%>"
+                        <a href="controle?op=<%out.print(AcoesCommand.CONSULTAR_ID.getAcao());%>&id=<%out.print(f.getId());%>&model=<%out.print(filmeEnum.getSingularSemAcento());%>&from=<%out.print(filmeEnum.getSingularSemAcento());%>"
                            class="btn-tabela btn-editar" title="Editar">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a href="controle?op=<%out.print(deletarStr);%>&id=<%out.print(f.getId());%>&model=<%out.print(model);%>&from=<%out.print(model);%>"
+                        <a href="controle?op=<%out.print(AcoesCommand.DELETAR.getAcao());%>&id=<%out.print(f.getId());%>&model=<%out.print(filmeEnum.getSingularSemAcento());%>&from=<%out.print(filmeEnum.getSingularSemAcento());%>"
                            class="btn-tabela btn-excluir" title="Excluir">
                             <i class="fas fa-trash-alt"></i>
                         </a>

@@ -12,6 +12,7 @@
 <%@page import="java.util.HashMap" %>
 <%@page import="java.util.List" %>
 <%@ page import="util.NomesModel" %>
+<%@ page import="util.AcoesCommand" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -23,10 +24,9 @@
 </head>
 <body>
 <%
-    NomesModel model = NomesModel.Ingresso;
+    NomesModel clienteEnum = NomesModel.CLIENTE;
+    NomesModel ingressoEnum = NomesModel.INGRESSO;
     String[] formasPagamento = {"Crédito", "Débito", "Dinheiro", "PIX"};
-    String cadastrarStr = "Cadastrar";
-    String listarTodosStr = "ConsultarTodos";
     ClienteModel cliente = (ClienteModel) request.getAttribute("cliente");
     List<HashMap<String, Object>> opcoes = (List<HashMap<String, Object>>) request.getAttribute("opcoes");
 %>
@@ -39,10 +39,9 @@
     <div class="menu-opcoes">
         <%
             for (NomesModel nomeModel : NomesModel.values()) {
-                if (nomeModel == model) continue;
+                if (nomeModel.getSingular().equals(ingressoEnum.getSingular())) continue;
         %>
-        <a href="controle?op=<%out.print(listarTodosStr);%>&model=<%out.print(nomeModel);%>"><%
-            out.print(nomeModel);%></a>
+        <a href="controle?op=<%out.print(AcoesCommand.CONSULTAR_TODOS.getAcao());%>&model=<%out.print(nomeModel.getSingularSemAcento());%>"><%out.print(nomeModel.getPlural());%></a>
         <%}%>
     </div>
 </div>
@@ -52,8 +51,8 @@
 
     <form method="GET" action="controle" class="ingresso-form">
         <input type="hidden" name="idCliente" value="<%out.print(cliente.getId());%>">
-        <input type="hidden" name="model" value="<%out.print(model);%>">
-        <input type="hidden" name="op" value="<%out.print(cadastrarStr);%>">
+        <input type="hidden" name="model" value="<%out.print(ingressoEnum.getSingularSemAcento());%>">
+        <input type="hidden" name="op" value="<%out.print(AcoesCommand.CADASTRAR.getAcao());%>">
         <div class="col-client-value">
             <div class="info-group margin-top-20">
                 <label for="valor" class="label-pill">Valor (R$)</label>
@@ -113,7 +112,7 @@
         </div>
 
         <footer class="action-buttons">
-            <a href="controle?model=<%out.print(NomesModel.Cliente);%>&op=<%out.print(listarTodosStr);%>">
+            <a href="controle?model=<%out.print(clienteEnum.getSingularSemAcento());%>&op=<%out.print(AcoesCommand.CONSULTAR_TODOS.getAcao());%>">
                 <button type="button" class="btn-ticket">
                     Voltar
                 </button>

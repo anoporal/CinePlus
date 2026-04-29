@@ -8,6 +8,7 @@
 <%@page import="java.util.List" %>
 <%@ page import="java.util.Objects" %>
 <%@ page import="util.NomesModel" %>
+<%@ page import="util.AcoesCommand" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -19,20 +20,16 @@
 </head>
 <body>
 <%
-    NomesModel model = NomesModel.Filme;
+    NomesModel filmeEnum = NomesModel.FILME;
     String op = request.getParameter("op");
     if (op == null) {
         op = "";
     }
     String paginaAnterior = request.getParameter("from");
     if (paginaAnterior == null) {
-        paginaAnterior = model.toString();
+        paginaAnterior = filmeEnum.getSingularSemAcento();
     }
     String[] generos = {"Sci-Fi", "Crime", "Animação", "Drama", "Ação"};
-    String atualizarStr = "Atualizar";
-    String cadastrarStr = "Cadastrar";
-    String listarTodosStr = "ConsultarTodos";
-    String listarPorIdStr = "ConsultarId";
     List<FilmeModel> lfilm = (List<FilmeModel>) request.getAttribute("filmes");
 %>
 
@@ -42,9 +39,9 @@
 
     <div class="menu-opcoes">
         <%for (NomesModel nomeModel : NomesModel.values()) {
-            if (nomeModel == model) continue;
-            if (nomeModel == NomesModel.Ingresso) continue;%>
-        <a href="controle?op=<%out.print(listarTodosStr);%>&model=<%out.print(nomeModel);%>"><%out.print(nomeModel);%></a>
+            if (nomeModel.getSingular().equals(filmeEnum.getSingular())) continue;
+            if (nomeModel.getSingular().equals(NomesModel.INGRESSO.getSingular())) continue;%>
+        <a href="controle?op=<%out.print(AcoesCommand.CONSULTAR_TODOS.getAcao());%>&model=<%out.print(nomeModel.getSingularSemAcento());%>"><%out.print(nomeModel.getPlural());%></a>
         <%}%>
     </div>
 </div>
@@ -54,23 +51,23 @@
 <main class="main-content">
 
     <form action="controle" method="GET" class="main-content" style="width: 100%; margin-top: 0;">
-        <%if (op.equals(listarPorIdStr) && !Objects.requireNonNull(lfilm).isEmpty()) {%>
+        <%if (op.equals(AcoesCommand.CONSULTAR_ID.getAcao()) && !Objects.requireNonNull(lfilm).isEmpty()) {%>
         <input type="hidden" name="id" value="<%out.print(lfilm.getFirst().getId());
                     %>">
         <%}%>
         <input type="hidden" name="from" value="<%out.print(paginaAnterior);%>">
-        <input type="hidden" name="model" value="<%out.print(model);%>">
+        <input type="hidden" name="model" value="<%out.print(filmeEnum.getSingularSemAcento());%>">
         <input type="hidden" name="op" value="<%
-                    if (op.equals(listarPorIdStr) && !lfilm.isEmpty()) {
-                        out.print(atualizarStr);
+                    if (op.equals(AcoesCommand.CONSULTAR_ID.getAcao()) && !lfilm.isEmpty()) {
+                        out.print(AcoesCommand.ATUALIZAR.getAcao());
                     } else {
-                        out.print(cadastrarStr);
+                        out.print(AcoesCommand.CADASTRAR.getAcao());
                     }%>">
 
         <section class="form-column">
             <div class="input-group">
                 <label for="titulo" class="label-gold">Título</label>
-                <input type="text" id="titulo" name="titulo" placeholder="Título" class="input-field" required <%if (op.equals(listarPorIdStr)&&!lfilm.isEmpty()) {
+                <input type="text" id="titulo" name="titulo" placeholder="Título" class="input-field" required <%if (op.equals(AcoesCommand.CONSULTAR_ID.getAcao())&&!lfilm.isEmpty()) {
                                 out.print(String.format("value='%s'", lfilm.getFirst().getTitulo()));
                             }%>>
             </div>
@@ -81,7 +78,7 @@
                     <option value="">Selecione</option>
                     <%for (String genero : generos) {%>
                     <option value="<%out.print(genero);%>"<%
-                        if (op.equals(listarPorIdStr) && !lfilm.isEmpty() && lfilm.getFirst().getGenero().equals(genero))
+                        if (op.equals(AcoesCommand.CONSULTAR_ID.getAcao()) && !lfilm.isEmpty() && lfilm.getFirst().getGenero().equals(genero))
                             out.print(" selected");
                     %>><%out.print(genero);%></option>
                     <%}%>
@@ -92,7 +89,7 @@
                 <label for="duracao" class="label-gold">Duração</label>
                 <input type="number" id="duracao" name="duracao" placeholder="Minutos" class="input-field" required
                        min="2" <%
-                    if (op.equals(listarPorIdStr) && !lfilm.isEmpty()) {
+                    if (op.equals(AcoesCommand.CONSULTAR_ID.getAcao()) && !lfilm.isEmpty()) {
                         out.print(String.format("value='%s'", lfilm.getFirst().getDuracao()));
                     }
                 %> />
@@ -101,13 +98,13 @@
 
         <section class="button-column">
 
-            <input type="submit" class="btn-action" value="<%if (op.equals(listarPorIdStr) && !lfilm.isEmpty()) {
+            <input type="submit" class="btn-action" value="<%if (op.equals(AcoesCommand.CONSULTAR_ID.getAcao()) && !lfilm.isEmpty()) {
                         out.print("Editar");
                     } else {
                         out.print("Cadastrar");
-                    }; out.print(" " + model);%>">
+                    }; out.print(" " + filmeEnum.getSingular());%>">
 
-            <a href="controle?model=<%out.print(paginaAnterior);%>&op=<%out.print(listarTodosStr);%>">
+            <a href="controle?model=<%out.print(paginaAnterior);%>&op=<%out.print(AcoesCommand.CONSULTAR_TODOS.getAcao());%>">
                 <button type="button" class="btn-action">
                     Voltar
                 </button>
