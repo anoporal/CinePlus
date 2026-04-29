@@ -11,6 +11,7 @@
 <%@page import="java.util.List"%>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="util.NomesModel" %>
+<%@ page import="util.AcoesCommand" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -26,11 +27,7 @@
     <body>
         <%
             String op = request.getParameter("op");
-            NomesModel model = NomesModel.Sessao;
-            String listarPorIdStr = "ConsultarId";
-            String listarTodosStr = "ConsultarTodos";
-            String deletarStr = "Deletar";
-            String consultarCadastroStr = "ConsultarCadastro";
+            NomesModel sessaoEnum = NomesModel.SESSAO;
             List<HashMap<String, Object>> lsessao = (List<HashMap<String, Object>>) request.getAttribute("sessoes");
         %>
         <div class="menu-models">
@@ -39,9 +36,9 @@
 
             <div class="menu-opcoes">
                 <%for (NomesModel nomeModel : NomesModel.values()) {
-                    if (nomeModel == model) continue;
-                    if (nomeModel == NomesModel.Ingresso) continue;%>
-                    <a href="controle?op=<%out.print(listarTodosStr);%>&model=<%out.print(nomeModel);%>"><%out.print(nomeModel);%></a>
+                    if (nomeModel.getSingular().equals(sessaoEnum.getSingular())) continue;
+                    if (nomeModel.getSingular().equals(NomesModel.INGRESSO.getSingular())) continue;%>
+                    <a href="controle?op=<%out.print(AcoesCommand.CONSULTAR_TODOS.getAcao());%>&model=<%out.print(nomeModel.getSingularSemAcento());%>"><%out.print(nomeModel.getPlural());%></a>
                 <%}%>
             </div>
         </div>
@@ -66,14 +63,14 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <div>Filme<a href="controle?model=<%out.print(NomesModel.Filme);%>&from=<%out.print(model);%>" class="btn-add">+</a></div>
+                                    <div>Filme<a href="controle?model=<%out.print(NomesModel.FILME.getSingular());%>&from=<%out.print(sessaoEnum.getSingularSemAcento());%>" class="btn-add">+</a></div>
                                 </th>
                                 <th>
-                                    <div>Sess&atilde;o<a href="controle?model=<%out.print(model);%>&op=<%out.print(consultarCadastroStr);%>&from=<%out.print(model);%>" class="btn-add">+</a></div>
+                                    <div>Sess&atilde;o<a href="controle?model=<%out.print(sessaoEnum.getSingularSemAcento());%>&from=<%out.print(sessaoEnum.getSingularSemAcento());%>" class="btn-add">+</a></div>
                                 </th>
                                 <th>Dura&ccedil;&atilde;o</th>
                                 <th>G&ecirc;nero</th>
-                                <th>Sala<a href="controle?model=<%out.print(NomesModel.Sala);%>&from=<%out.print(model);%>" class="btn-add">+</a></th>
+                                <th>Sala<a href="controle?model=<%out.print(NomesModel.SALA.getSingular());%>&from=<%out.print(sessaoEnum.getSingularSemAcento());%>" class="btn-add">+</a></th>
                                 <th>Capacidade</th>
                                 <th>A&ccedil;&otilde;es</th>
                             </tr>
@@ -103,8 +100,8 @@
                                 <td>
                                     <div class="coluna-acoes">
                                         <!-- ?? EXCLUIR (ESQUERDA) -->
-                                        <%if (!(op.equals(listarPorIdStr))) {%>
-                                        <a href="controle?op=<%out.print(deletarStr);%>&id=<%out.print(sessao.getId());%>&model=<%out.print(model);%>" class="btn-acao btn-excluir">
+                                        <%if (!(op.equals(AcoesCommand.CONSULTAR_ID.getAcao()))) {%>
+                                        <a href="controle?op=<%out.print(AcoesCommand.DELETAR.getAcao());%>&id=<%out.print(sessao.getId());%>&model=<%out.print(sessaoEnum.getSingularSemAcento());%>" class="btn-acao btn-excluir">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                         <%}%>
@@ -114,9 +111,9 @@
                                                 <i class="fas fa-edit"></i></button>
 
                                             <div class="opcoes">
-                                                <a href="controle?op=<%out.print(listarPorIdStr);%>&id=<%out.print(filme.getId());%>&model=<%out.print(NomesModel.Filme);%>&from=<%out.print(model);%>">Filme</a>
-                                                <a href="controle?op=<%out.print(listarPorIdStr);%>&id=<%out.print(sessao.getId());%>&model=<%out.print(model);%>&from=<%out.print(model);%>">Sess&atilde;o</a>
-                                                <a href="controle?op=<%out.print(listarPorIdStr);%>&id=<%out.print(sala.getId());%>&model=<%out.print(NomesModel.Sala);%>&from=<%out.print(model);%>">Sala</a>
+                                                <a href="controle?op=<%out.print(AcoesCommand.CONSULTAR_ID.getAcao());%>&id=<%out.print(filme.getId());%>&model=<%out.print(NomesModel.FILME.getSingularSemAcento());%>&from=<%out.print(sessaoEnum.getSingularSemAcento());%>">Filme</a>
+                                                <a href="controle?op=<%out.print(AcoesCommand.CONSULTAR_ID.getAcao());%>&id=<%out.print(sessao.getId());%>&model=<%out.print(sessaoEnum.getSingularSemAcento());%>&from=<%out.print(sessaoEnum.getSingularSemAcento());%>">Sess&atilde;o</a>
+                                                <a href="controle?op=<%out.print(AcoesCommand.CONSULTAR_ID.getAcao());%>&id=<%out.print(sala.getId());%>&model=<%out.print(NomesModel.SALA.getSingularSemAcento());%>&from=<%out.print(sessaoEnum.getSingularSemAcento());%>">Sala</a>
                                             </div>
                                         </div>
                                     </div>

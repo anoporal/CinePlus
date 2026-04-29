@@ -9,6 +9,7 @@
 <%@page import="model.ClienteModel" %>
 <%@page import="java.util.List" %>
 <%@ page import="util.NomesModel" %>
+<%@ page import="util.AcoesCommand" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -23,11 +24,8 @@
 </head>
 <body>
 <%
-    NomesModel model = NomesModel.Cliente;
-    String listarPorIdStr = "ConsultarId";
-    String listarTodosStr = "ConsultarTodos";
-    String listarCadastroStr = "ConsultarCadastro";
-    String deletarStr = "Deletar";
+    NomesModel clienteEnum = NomesModel.CLIENTE;
+    NomesModel ingressoEnum = NomesModel.INGRESSO;
     List<ClienteModel> lcli = (List<ClienteModel>) request.getAttribute("clientes");
 %>
 
@@ -37,9 +35,9 @@
 
     <div class="menu-opcoes">
         <%for (NomesModel nomeModel : NomesModel.values()) {
-            if (nomeModel == model) continue;
-            if (nomeModel == NomesModel.Ingresso) continue;%>
-        <a href="controle?op=<%out.print(listarTodosStr);%>&model=<%out.print(nomeModel);%>"><%out.print(nomeModel);%></a>
+            if (nomeModel.getSingular().equals(clienteEnum.getSingular())) continue;
+            if (nomeModel.getSingular().equals(ingressoEnum.getSingular())) continue;%>
+        <a href="controle?op=<%out.print(AcoesCommand.CONSULTAR_TODOS.getAcao());%>&model=<%out.print(nomeModel.getSingularSemAcento());%>"><%out.print(nomeModel.getPlural());%></a>
         <%}%>
     </div>
 </div>
@@ -53,7 +51,7 @@
             <table class="tabela-cliente">
                 <thead>
                 <tr>
-                    <th>Cliente<a href="controle?model=<%out.print(model);%>&from=<%out.print(model);%>" class="btn-add">+</a></th>
+                    <th>Cliente<a href="controle?model=<%out.print(clienteEnum.getSingular());%>&from=<%out.print(clienteEnum.getSingular());%>" class="btn-add">+</a></th>
                     <th>Telefone</th>
                     <th>E-mail</th>
                     <th>Ingressos</th>
@@ -81,15 +79,15 @@
                         out.print(listaIngressos.toString());
                     %><%
                         }%>
-                        <a href="controle?op=<%out.print(listarCadastroStr);%>&idCliente=<%out.print(c.getId());%>&model=<%out.print(NomesModel.Ingresso);%>"
+                        <a href="controle?op=<%out.print(AcoesCommand.CADASTRAR.getAcao());%>&idCliente=<%out.print(c.getId());%>&model=<%out.print(ingressoEnum.getSingular());%>"
                            class="btn-add-ingresso" title="Novo Ingresso">+</a>
                     </td>
                     <td class="coluna-acoes">
-                        <a href="controle?op=<%out.print(listarPorIdStr);%>&id=<%out.print(c.getId());%>&model=<%out.print(model);%>"
+                        <a href="controle?op=<%out.print(AcoesCommand.CONSULTAR_ID.getAcao());%>&id=<%out.print(c.getId());%>&model=<%out.print(clienteEnum.getSingular());%>"
                            class="btn-tabela btn-editar" title="Editar">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a href="controle?op=<%out.print(deletarStr);%>&id=<%out.print(c.getId());%>&model=<%out.print(model);%>"
+                        <a href="controle?op=<%out.print(AcoesCommand.DELETAR.getAcao());%>&id=<%out.print(c.getId());%>&model=<%out.print(clienteEnum.getSingular());%>"
                            class="btn-tabela btn-excluir" title="Excluir">
                             <i class="fas fa-trash-alt"></i>
                         </a>
