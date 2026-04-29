@@ -12,6 +12,7 @@
 <%@page import="java.util.List" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="util.NomesModel" %>
+<%@ page import="util.AcoesCommand" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -32,19 +33,15 @@
 </head>
 <body>
 <%
-    NomesModel model = NomesModel.Sessao;
+    NomesModel sessaoEnum = NomesModel.SESSAO;
     String op = request.getParameter("op");
     if (op == null) {
         op = "";
     }
     String paginaAnterior = request.getParameter("from");
     if (paginaAnterior == null) {
-        paginaAnterior = model.toString();
+        paginaAnterior = sessaoEnum.getSingularSemAcento();
     }
-    String atualizarStr = "Atualizar";
-    String cadastrarStr = "Cadastrar";
-    String listarTodosStr = "ConsultarTodos";
-    String listarPorIdStr = "ConsultarId";
     HashMap<String, Object> sessao = (HashMap<String, Object>) request.getAttribute("sessao");
     HashMap<String, Object> opcoes = (HashMap<String, Object>) request.getAttribute("opcoes");
     Integer idSala = (Integer) request.getAttribute("idSala");
@@ -56,9 +53,9 @@
 
     <div class="menu-opcoes">
         <%for (NomesModel nomeModel : NomesModel.values()) {
-            if (nomeModel == model) continue;
-            if (nomeModel == NomesModel.Ingresso) continue;%>
-        <a href="controle?op=<%out.print(listarTodosStr);%>&model=<%out.print(nomeModel);%>"><%out.print(nomeModel);%></a>
+            if (nomeModel.getSingular().equals(sessaoEnum.getSingular())) continue;
+            if (nomeModel.getSingular().equals(NomesModel.INGRESSO.getSingular())) continue;%>
+        <a href="controle?op=<%out.print(AcoesCommand.CONSULTAR_TODOS.getAcao());%>&model=<%out.print(nomeModel.getSingularSemAcento());%>"><%out.print(nomeModel.getPlural());%></a>
         <%}%>
     </div>
 </div>
@@ -67,32 +64,32 @@
     <div class="main-container">
         <section class="panel sessao-section">
             <h1 class="neon-title"><%
-                if (op.equals(listarPorIdStr) && sessao != null) {
+                if (op.equals(AcoesCommand.CONSULTAR_ID.getAcao()) && sessao != null) {
                     out.print("Atualizar");
                 } else {
                     out.print("Cadastrar");
                 }
-                out.print(" " + model);
+                out.print(" " + sessaoEnum.getSingular());
             %></h1>
 
             <div class="sessao-content">
                 <form action="controle" method="POST" class="form-neon">
-                    <%if (op.equals(listarPorIdStr) && sessao != null) {%>
+                    <%if (op.equals(AcoesCommand.CONSULTAR_ID.getAcao()) && sessao != null) {%>
                     <input type="hidden" name="id" value="<%out.print(((SessaoModel) sessao.get("sessao")).getId());
                     %>">
                     <%}%>
                     <input type="hidden" name="from" value="<%out.print(paginaAnterior);%>">
-                    <input type="hidden" name="model" value="<%out.print(model);%>">
+                    <input type="hidden" name="model" value="<%out.print(sessaoEnum.getSingularSemAcento());%>">
                     <input type="hidden" name="op" value="<%
-                    if (op.equals(listarPorIdStr) && sessao != null) {
-                        out.print(atualizarStr);
+                    if (op.equals(AcoesCommand.CONSULTAR_ID.getAcao()) && sessao != null) {
+                        out.print(AcoesCommand.ATUALIZAR.getAcao());
                     } else {
-                        out.print(cadastrarStr);
+                        out.print(AcoesCommand.CADASTRAR.getAcao());
                     }%>">
                     <div class="input-group">
                         <label for="datePickerId">HORÁRIO</label>
                         <input type="datetime-local" id="datePickerId" name="dataHora" placeholder="Horário" required <%
-                            if (op.equals(listarPorIdStr) && sessao != null) {
+                            if (op.equals(AcoesCommand.CONSULTAR_ID.getAcao()) && sessao != null) {
                                 out.print(String.format("value=\"%s\"", simpleDateFormatted.format(((SessaoModel) sessao.get("sessao")).getDataHora())));
                             }
                         %> />
@@ -106,7 +103,7 @@
                                 for (FilmeModel filme : (List<FilmeModel>) opcoes.get("filmes")) {
                             %>
                             <option value="<%out.print(filme.getId());%>" <%
-                                if (op.equals(listarPorIdStr)) {
+                                if (op.equals(AcoesCommand.CONSULTAR_ID.getAcao())) {
                                     assert sessao != null;
                                     if (filme.getId() == ((FilmeModel) sessao.get("filme")).getId()) {
                                         out.print("selected");
@@ -121,7 +118,7 @@
 
                     <div class="input-group">
                         <label for="idSala">SALA</label>
-                        <%if (!(op.equals(listarPorIdStr))) {%>
+                        <%if (!(op.equals(AcoesCommand.CONSULTAR_ID.getAcao()))) {%>
                         <select id="idSala" name="idSala" required>
                             <option value="">Selecione</option>
                             <%
@@ -139,17 +136,17 @@
                         <%}%>
                     </div>
 
-                    <input type="submit" class="btn-neon" value="<%if (op.equals(listarPorIdStr)) {
+                    <input type="submit" class="btn-neon" value="<%if (op.equals(AcoesCommand.CONSULTAR_ID.getAcao())) {
                         out.print("EDITAR");
                     } else {
                         out.print("CADASTRAR");
                     };
-                    out.print(" " + model.toString().toUpperCase());%>">
+                    out.print(" " + sessaoEnum.getSingular().toUpperCase());%>">
                 </form>
             </div>
         </section>
     </div>
-    <a href="controle?model=<%out.print(paginaAnterior);%>&op=<%out.print(listarTodosStr);%>"
+    <a href="controle?model=<%out.print(paginaAnterior);%>&op=<%out.print(AcoesCommand.CONSULTAR_TODOS.getAcao());%>"
        class="btn-voltar">VOLTAR</a>
 </div>
 

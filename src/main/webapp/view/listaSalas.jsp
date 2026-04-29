@@ -9,6 +9,7 @@
 <%@page import="model.SalaModel" %>
 <%@page import="java.util.List" %>
 <%@ page import="util.NomesModel" %>
+<%@ page import="util.AcoesCommand" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -23,11 +24,8 @@
 </head>
 <body>
 <%
-    NomesModel model = NomesModel.Sala;
-    String listarPorIdStr = "ConsultarId";
-    String listarTodosStr = "ConsultarTodos";
-    String consultarCadastroStr = "ConsultarCadastro";
-    String deletarStr = "Deletar";
+    NomesModel salaEnum = NomesModel.SALA;
+    NomesModel sessaoEnum = NomesModel.SESSAO;
     List<SalaModel> lsala = (List<SalaModel>) request.getAttribute("salas");
 %>
 
@@ -37,9 +35,9 @@
 
     <div class="menu-opcoes">
         <%for (NomesModel nomeModel : NomesModel.values()) {
-            if (nomeModel == model) continue;
-            if (nomeModel == NomesModel.Ingresso) continue;%>
-        <a href="controle?op=<%out.print(listarTodosStr);%>&model=<%out.print(nomeModel);%>"><%out.print(nomeModel);%></a>
+            if (nomeModel.getSingular().equals(salaEnum.getSingular())) continue;
+            if (nomeModel.getSingular().equals(NomesModel.INGRESSO.getSingular())) continue;%>
+        <a href="controle?op=<%out.print(AcoesCommand.CONSULTAR_TODOS.getAcao());%>&model=<%out.print(nomeModel.getSingularSemAcento());%>"><%out.print(nomeModel.getPlural());%></a>
         <%}%>
     </div>
 </div>
@@ -53,9 +51,9 @@
             <table class="tabela-sala">
                 <thead>
                 <tr>
-                    <th>ID<a href="controle?model=<%out.print(model);%>&from=<%out.print(model);%>" class="btn-add">+</a></th>
+                    <th>ID<a href="controle?model=<%out.print(salaEnum.getSingularSemAcento());%>&from=<%out.print(salaEnum.getSingularSemAcento());%>" class="btn-add">+</a></th>
                     <th>Capacidade</th>
-                    <th>Sessões<a href="controle?model=<%out.print(NomesModel.Sessao);%>&op=<%out.print(consultarCadastroStr);%>&from=<%out.print(model);%>" class="btn-add">+</a></th>
+                    <th>Sessões<a href="controle?model=<%out.print(sessaoEnum.getSingularSemAcento());%>&op=<%out.print(AcoesCommand.CADASTRAR.getAcao());%>&from=<%out.print(salaEnum.getSingularSemAcento());%>" class="btn-add">+</a></th>
                     <th>Ações</th>
                 </tr>
                 </thead>
@@ -90,14 +88,14 @@
                             <%}%>
                         </div>
                         <%}%>
-                        <a href="controle?model=<%out.print(NomesModel.Sessao);%>&op=<%out.print(consultarCadastroStr);%>&from=<%out.print(model);%>&idSala=<%out.print(sa.getId());%>" class="btn-add">+</a>
+                        <a href="controle?model=<%out.print(sessaoEnum.getSingularSemAcento());%>&op=<%out.print(AcoesCommand.CADASTRAR.getAcao());%>&from=<%out.print(salaEnum.getSingularSemAcento());%>&idSala=<%out.print(sa.getId());%>" class="btn-add">+</a>
                     </td>
                     <td class="coluna-acoes">
-                        <a href="controle?op=<%out.print(listarPorIdStr);%>&id=<%out.print(sa.getId());%>&model=<%out.print(model);%>&from=<%out.print(model);%>"
+                        <a href="controle?op=<%out.print(AcoesCommand.CONSULTAR_ID.getAcao());%>&id=<%out.print(sa.getId());%>&model=<%out.print(salaEnum.getSingularSemAcento());%>&from=<%out.print(salaEnum.getSingularSemAcento());%>"
                            class="btn-tabela btn-editar" title="Editar">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a href="controle?op=<%out.print(deletarStr);%>&id=<%out.print(sa.getId());%>&model=<%out.print(model);%>&from=<%out.print(model);%>"
+                        <a href="controle?op=<%out.print(AcoesCommand.DELETAR.getAcao());%>&id=<%out.print(sa.getId());%>&model=<%out.print(salaEnum.getSingularSemAcento());%>&from=<%out.print(salaEnum.getSingularSemAcento());%>"
                            class="btn-tabela btn-excluir" title="Excluir">
                             <i class="fas fa-trash-alt"></i>
                         </a>
