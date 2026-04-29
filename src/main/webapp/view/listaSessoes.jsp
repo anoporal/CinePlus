@@ -66,7 +66,7 @@
                                     <div>Filme<a href="controle?model=<%out.print(NomesModel.FILME.getSingular());%>&from=<%out.print(sessaoEnum.getSingularSemAcento());%>" class="btn-add">+</a></div>
                                 </th>
                                 <th>
-                                    <div>Sess&atilde;o<a href="controle?model=<%out.print(sessaoEnum.getSingularSemAcento());%>&op=<%out.print(AcoesCommand.CADASTRAR.getAcao());%>&from=<%out.print(sessaoEnum.getSingularSemAcento());%>" class="btn-add">+</a></div>
+                                    <div>Sess&atilde;o<a href="controle?model=<%out.print(sessaoEnum.getSingularSemAcento());%>&from=<%out.print(sessaoEnum.getSingularSemAcento());%>" class="btn-add">+</a></div>
                                 </th>
                                 <th>Dura&ccedil;&atilde;o</th>
                                 <th>G&ecirc;nero</th>

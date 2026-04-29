@@ -53,7 +53,7 @@
                 <tr>
                     <th>ID<a href="controle?model=<%out.print(salaEnum.getSingularSemAcento());%>&from=<%out.print(salaEnum.getSingularSemAcento());%>" class="btn-add">+</a></th>
                     <th>Capacidade</th>
-                    <th>Sessões<a href="controle?model=<%out.print(sessaoEnum.getSingularSemAcento());%>&op=<%out.print(AcoesCommand.CADASTRAR.getAcao());%>&from=<%out.print(salaEnum.getSingularSemAcento());%>" class="btn-add">+</a></th>
+                    <th>Sessões<a href="controle?model=<%out.print(sessaoEnum.getSingularSemAcento());%>&from=<%out.print(salaEnum.getSingularSemAcento());%>" class="btn-add">+</a></th>
                     <th>Ações</th>
                 </tr>
                 </thead>
@@ -88,7 +88,7 @@
                             <%}%>
                         </div>
                         <%}%>
-                        <a href="controle?model=<%out.print(sessaoEnum.getSingularSemAcento());%>&op=<%out.print(AcoesCommand.CADASTRAR.getAcao());%>&from=<%out.print(salaEnum.getSingularSemAcento());%>&idSala=<%out.print(sa.getId());%>" class="btn-add">+</a>
+                        <a href="controle?model=<%out.print(sessaoEnum.getSingularSemAcento());%>&from=<%out.print(salaEnum.getSingularSemAcento());%>&idSala=<%out.print(sa.getId());%>" class="btn-add">+</a>
                     </td>
                     <td class="coluna-acoes">
                         <a href="controle?op=<%out.print(AcoesCommand.CONSULTAR_ID.getAcao());%>&id=<%out.print(sa.getId());%>&model=<%out.print(salaEnum.getSingularSemAcento());%>&from=<%out.print(salaEnum.getSingularSemAcento());%>"
